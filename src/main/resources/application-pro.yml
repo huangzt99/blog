@@ -1,0 +1,13 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/ssm_db
+    username: root
+    password: root
+logging:
+  level:
+    root: warn
+    com.hzt: info
+  file:
+    name: log/blog-pro.log
+

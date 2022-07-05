@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hzt.dao.BlogMapper">
+
+    <resultMap id="blog" type="com.hzt.pojo.Blog">
+        <id property="id" column="id"/>
+        <result property="title" column="title"/>
+        <result property="createDate" column="createDate"/>
+        <association property="type" javaType="com.hzt.pojo.Type">
+            <id property="id" column="id"/>
+            <result property="name" column="name"/>
+        </association>
+    </resultMap>
+
+    <select id="get" resultMap="blog">
+        SELECT tb_blog.id,tb_blog.title,tb_type.name,tb_blog.createDate FROM tb_blog LEFT JOIN tb_type ON type_id = tb_type.id
+    </select>
+
+    <resultMap id="firstPageBlog" type="com.hzt.pojo.Blog">
+        <id property="id" column="id"/>
+        <result property="title" column="title"/>
+        <result property="firstPicture" column="first_picture"/>
+        <result property="views" column="views"/>
+        <result property="createDate" column="createDate"/>
+        <result property="content" column="content"/>
+
+        <association property="type" javaType="com.hzt.pojo.Type">
+            <id property="id" column="id"/>
+            <result property="name" column="name"/>
+        </association>
+
+        <association property="user" javaType="com.hzt.pojo.User">
+            <id property="id" column="id"/>
+            <result property="username" column="user_name"/>
+            <result property="nikeName" column="nike_name"/>
+            <result property="email" column="email"/>
+            <result property="photo" column="photo"/>
+        </association>
+
+    </resultMap>
+    <select id="getFirstPageBlog" resultMap="firstPageBlog">
+        select *  from tb_blog b, tb_type t,tb_user u
+        where b.type_id = t.id and  u.id = b.user_id
+    </select>
+
+    <select id="getById" resultMap="firstPageBlog">
+        SELECT *  FROM tb_blog b, tb_type t,tb_user u
+        WHERE b.id=#{id}
+          AND b.type_id = t.id
+          AND  u.id = b.user_id
+
+    </select>
+
+
+</mapper>
