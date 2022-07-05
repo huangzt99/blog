@@ -53,4 +53,8 @@ public class BlogService {
     public Blog getBlogById(long id){
         return blogMapper.getById(id);
     }
+
+    public int count(){
+        return blogMapper.count();
+    }
 }

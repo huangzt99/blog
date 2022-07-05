@@ -19,12 +19,15 @@ public class IndexController {
     @GetMapping
     public String index(Model model){
         PageInfo<Blog> pageInfo = blogService.getFirstPage(1);
+        int count = blogService.count();
 
         for (Blog b : pageInfo.getList()){
             if (b.getContent().length()>60)
                 b.setContent(b.getContent().substring(0,60));
+                System.out.println(b.getUser().getPhoto());
         }
         model.addAttribute("pageInfo",pageInfo);
+        model.addAttribute("count",count);
         return "index";
     }
 

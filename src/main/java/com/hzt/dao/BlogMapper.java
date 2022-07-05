@@ -18,4 +18,6 @@ public interface BlogMapper {
 
     @Delete("delete from tb_blog where id=#{id}")
     int delete(long id);
+    @Select("SELECT COUNT(id) FROM tb_blog")
+    int count();
 }
